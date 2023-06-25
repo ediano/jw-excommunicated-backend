@@ -1,0 +1,16 @@
+{
+	"name": "JW Excommunicated Backend",
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"docker-compose.yml"
+	],
+	"service": "backend",
+	"workspaceFolder": "/home/node/jw-excommunicated-backend",
+  "postCreateCommand": "npm install",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {},
+		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {},
+		"ghcr.io/stuartleeks/dev-container-features/shell-history:0": {},
+		"ghcr.io/jayree/devcontainer-features/sf-autocomplete:1": {}
+	}
+}

@@ -1,0 +1,81 @@
+version: '3.9'
+
+services:
+  backend:
+    build: .
+    container_name: jw_excommunicated_backend
+    ports:
+      - '3333:3333'
+    volumes:
+      - .:/home/node/jw-excommunicated-backend
+    depends_on:
+      - 'postgres'
+      - 'redis'
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: jw_excommunicated_backend_postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: development
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '512M'
+
+  redis:
+    image: redis:7-alpine
+    container_name: jw_excommunicated_backend_redis
+    ports:
+      - '6379:6379'
+    environment:
+      NODE_ENV: development
+      DATABASE_HOST: postgres
+    depends_on:
+      - 'postgres'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 25M
+
+  pgadmin:
+    image: dpage/pgadmin4:7
+    container_name: jw_excommunicated_backend_pgadmin
+    ports:
+      - "8080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@postgres.dev
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
+
+  redisinsight:
+    image: redislabs/redisinsight:1.14.0
+    container_name: jw_excommunicated_backend_redisinsight
+    ports:
+      - "8001:8001"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 64M
+
+volumes:
+  postgres:
+    driver: local
+
+networks:
+  default:
+    name: jw_excommunicated_backend_network_default
+  external:
+    name: jw_excommunicated_backend_network_external_default
+    external: true
