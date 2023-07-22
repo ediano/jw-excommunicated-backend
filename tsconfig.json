@@ -21,8 +21,20 @@
       "@backend/*": [
         "apps/backend/src/*"
       ],
+      "@backend/test/*": [
+        "apps/backend/test/*"
+      ],
       "@redis/*": [
         "apps/redis/src/*"
+      ],
+      "@redis/test/*": [
+        "apps/redis/test/*"
+      ],
+      "@configs": [
+        "libs/configs/src"
+      ],
+      "@configs/*": [
+        "libs/configs/src/*"
       ]
     }
   }

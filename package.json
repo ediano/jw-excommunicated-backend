@@ -21,7 +21,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./jest-e2e.json",
+    "test:e2e:all": "jest --config ./jest-e2e.json",
     "test:e2e:backend": "jest --config ./apps/backend/jest-e2e.json",
     "test:e2e:redis": "jest --config ./apps/redis/jest-e2e.json",
     "prepare": "husky install"
@@ -79,11 +79,13 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "@backend/(.*)": "<rootDir>/apps/backend/src/$1",
-      "@redis/(.*)": "<rootDir>/apps/redis/src/$1"
+      "^@backend(|/.*)$": "<rootDir>/apps/backend/src/$1",
+      "^@redis(|/.*)$": "<rootDir>/apps/redis/src/$1",
+      "^@configs(|/.*)$": "<rootDir>/libs/configs/src/$1"
     }
   }
 }
